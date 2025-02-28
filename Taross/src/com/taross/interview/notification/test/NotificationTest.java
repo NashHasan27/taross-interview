@@ -1,5 +1,4 @@
 package com.taross.interview.notification.test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.taross.interview.notification.consumer.ServiceProcessor;
+import com.taross.interview.notification.consumer.NotificationProcessor;
 import com.taross.interview.notification.injector.EmailServiceProvider;
 import com.taross.interview.notification.injector.MessageServiceProvider;
 import com.taross.interview.notification.injector.SmsServiceProvider;
@@ -29,6 +29,8 @@ public class NotificationTest {
 	@BeforeEach
 	public void flushStreams() {
 		// code executed before each test method
+		outContent.reset();
+    		errContent.reset();
 	}
 
 	@Test
@@ -38,7 +40,9 @@ public class NotificationTest {
 		ServiceProcessor processor = messageServiceProvider.getProcessor();
 
 		processor.processMessages("This is a test sms", "0165605485");
-		assertEquals(outContent.toString(), "SMS sent to [0165605485] with Message [This is a test sms]");
+		
+		// Trim the expected value to avoid any additional newline characters
+        	assertEquals("SMS sent to [0165605485] with Message [This is a test sms]", outContent.toString().trim());
 	}
 
 	@Test
@@ -47,8 +51,8 @@ public class NotificationTest {
 		MessageServiceProvider messageServiceProvider = new EmailServiceProvider();
 		ServiceProcessor processor = messageServiceProvider.getProcessor();
 		processor.processMessages("Do you find this test interesting?", "tarossservice@gmail.com");
-		assertEquals(outContent.toString(),
-				"Email sent to [tarossservice@gmail.com] with Message [Do you find this test interesting?]");
+		assertEquals("Email sent to [tarossservice@gmail.com] with Message [Do you find this test interesting?]", 
+                     outContent.toString().trim());
 	}
 
 	@Test
@@ -57,8 +61,8 @@ public class NotificationTest {
 		MessageServiceProvider messageServiceProvider = new NotificationServiceProvider();
 		ServiceProcessor processor = messageServiceProvider.getProcessor();
 		processor.processMessages("What's the benefit of dependency injection?", "tarossservice@gmail.com");
-		assertEquals(outContent.toString(),
-				"Notification sent to [tarossservice@gmail.com] with Message [What's the benefit of dependency injection?]");
+		assertEquals("Notification sent to [tarossservice@gmail.com] with Message [What's the benefit of dependency injection?]", 
+                     outContent.toString().trim());
 
 	}
 
