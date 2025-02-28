@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.taross.interview.notification.consumer.ServiceProcessor;
-import com.taross.interview.notification.consumer.NotificationProcessor;
+import com.taross.interview.notification.injector.NotificationServiceProvider;
 import com.taross.interview.notification.injector.EmailServiceProvider;
 import com.taross.interview.notification.injector.MessageServiceProvider;
 import com.taross.interview.notification.injector.SmsServiceProvider;
