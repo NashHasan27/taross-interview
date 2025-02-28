@@ -16,6 +16,11 @@ public class ArrayMathUtilsTest {
 	@BeforeEach
 	public void setup() {}
 
+	//Added methods and Handlings
+	//Deprecated Method: replacing the usage of findMaximum() with findMax() as the former is deprecated.
+	//String Array Handling: implement the findMax(String[] arr) method in the ArrayMathUtils class.
+	//Edge Case Handling: Add test cases for edge cases like empty arrays (testFindMaxEmptyArray()), single element arrays (testFindMaxSingleElement()), etc.
+
 	@Test
 	public void testFindMax() {
 		// test method
@@ -24,10 +29,26 @@ public class ArrayMathUtilsTest {
 
 		intArr = new int[] {1029, 4029, 444, 3291, 92, 11, 0};
 		assertEquals(4029, ArrayMathUtils.findMax(intArr));
+
+		// Test for string array (Uncomment when String findMax method is implemented)
+        	String[] stringArr = new String[] {"abc", "abb", "acb", "def", "cgf"};
+        	assertEquals("def", ArrayMathUtils.findMax(stringArr)); // Ensure findMax for String[] works
 		
 		// String[] stringArr = new String[] {"abc", "abb", "acb", "def", "cgf"};
 		// assertEquals("def", ArrayMathUtils.findMax(stringArr));
 	}
+
+	 @Test
+    	public void testFindMaxEmptyArray() {
+        	int[] intArr = {};
+        	assertThrows(IllegalArgumentException.class, () -> ArrayMathUtils.findMax(intArr)); // Handle empty arrays
+    	}	
+
+    	@Test
+    	public void testFindMaxSingleElement() {
+        	int[] intArr = {1};
+        	assertEquals(1, ArrayMathUtils.findMax(intArr)); // Single element case
+    	}
 	
 	@AfterEach
 	public void tearDown() {}
